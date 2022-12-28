@@ -1,0 +1,26 @@
+name: Testing django_project  # название workflow
+on: workflow_dispatch  # будет запускаться в ручном режиме
+jobs: # глобальные задачи
+  django_test:  # название подзадачи
+    runs-on: ubuntu-latest  # платформа виртуальной машины
+    steps:  # шаги подзадачи
+      - name: Get code
+        uses: actions/checkout@v3  # получаем доступ к коду репозитория
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4.4.0  # установка питона
+        
+      - name: Uppdate pip and create activate venv
+        run: |
+          python -m pip install --upgrade pip
+        
+      - name: Install req
+        run: pip install -r req.txt
+        
+      - name: Start django
+        run: |
+          python manage.py makemigrations
+          python manage.py migrate
+        
+      - name: Test django
+        uses: UKnowWhoIm/django-test-action@v0.6.1
