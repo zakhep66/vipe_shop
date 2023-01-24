@@ -1,4 +1,4 @@
-name: Testing django_project  # название workflow
+name: Deploy django project  # название workflow
 on: workflow_dispatch  # будет запускаться в ручном режиме
 jobs: # глобальные задачи
   django_test:  # название подзадачи
@@ -21,6 +21,10 @@ jobs: # глобальные задачи
         run: |
           python manage.py makemigrations
           python manage.py migrate
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install req
         
-      - name: Test django
-        uses: UKnowWhoIm/django-test-action@v0.6.1
